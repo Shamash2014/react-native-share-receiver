@@ -1,5 +1,4 @@
-import { NativeModules } from "react-native";
-
+import { NativeModules, NativeEventEmitter } from "react-native";
 const { ShareReceiver } = NativeModules;
 const eventEmitter = new NativeEventEmitter(ShareReceiver);
 
