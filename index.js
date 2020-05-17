@@ -1,4 +1,5 @@
 import { NativeModules, NativeEventEmitter } from "react-native";
+import { useState, useEffect } from "react";
 const { ShareReceiver } = NativeModules;
 const eventEmitter = new NativeEventEmitter(ShareReceiver);
 
