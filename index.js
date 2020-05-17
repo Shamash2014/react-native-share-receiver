@@ -7,7 +7,7 @@ export const useShareData = () => {
   const [state, setState] = useState(null);
 
   useEffect(() => {
-    const eventListener = eventEmitter.addListener("intent", (event) => {
+    const eventListener = eventEmitter.addListener("ShareReceiver", (event) => {
       console.log(event.eventProperty); // "someValue"
 
       setState(event);

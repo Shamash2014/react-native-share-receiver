@@ -51,7 +51,7 @@ public class ShareReceiverModule extends ReactContextBaseJavaModule {
     params.putString("content", text);
     reactContext
         .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-        .emit("intent", params);
+        .emit("ShareReceiver", params);
   }
 
   @Override
