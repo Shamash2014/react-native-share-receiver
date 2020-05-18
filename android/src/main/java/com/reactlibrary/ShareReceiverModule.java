@@ -1,5 +1,6 @@
 package com.reactlibrary;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -35,8 +36,6 @@ public class ShareReceiverModule extends ReactContextBaseJavaModule {
     super(reactContext);
     this.reactContext = reactContext;
     this.receiver = new Receiver(this);
-    IntentFilter intentFilter = new IntentFilter(Intent.ACTION_SEND);
-    this.reactContext.registerReceiver(this.receiver, intentFilter);
   }
 
   private void setIntent(Intent intent) {
@@ -60,7 +59,15 @@ public class ShareReceiverModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void removeEventListener() {
-    this.reactContext.unregisterReceiver(this.receiver);
+  public void addShareListener() {
+    Activity mActivity = reactContext.getCurrentActivity();
+    IntentFilter intentFilter = new IntentFilter(Intent.ACTION_SEND);
+    mActivity.registerReceiver(this.receiver, intentFilter);
+  }
+
+  @ReactMethod
+  public void removeShareListener() {
+    Activity mActivity = reactContext.getCurrentActivity();
+    mActivity.unregisterReceiver(this.receiver);
   }
 }
