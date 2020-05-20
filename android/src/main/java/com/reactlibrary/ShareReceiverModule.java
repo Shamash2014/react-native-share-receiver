@@ -16,7 +16,6 @@ import com.facebook.react.modules.core.DeviceEventManagerModule;
 public class ShareReceiverModule extends ReactContextBaseJavaModule {
   private final ReactApplicationContext reactContext;
   private final Receiver receiver;
-  private Callback callback;
 
   private class Receiver extends BroadcastReceiver {
 
