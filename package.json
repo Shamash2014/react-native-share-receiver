@@ -3,7 +3,7 @@
   "title": "React Native Share Receiver",
   "version": "1.0.1",
   "description": "TODO",
-  "main": "index.js",
+  "main": ".",
   "files": [
     "README.md",
     "android",
@@ -19,9 +19,7 @@
     "url": "git+https://github.com/github_account/react-native-share-receiver.git",
     "baseUrl": "https://github.com/github_account/react-native-share-receiver"
   },
-  "keywords": [
-    "react-native"
-  ],
+  "keywords": ["react-native"],
   "author": {
     "name": "Your Name",
     "email": "yourname@email.com"
