@@ -8,8 +8,6 @@ export const useShareData = () => {
 
   useEffect(() => {
     const eventListener = eventEmitter.addListener("ShareReceiver", (event) => {
-      console.warn(event.eventProperty); // "someValue"
-
       setState(event);
     });
 
