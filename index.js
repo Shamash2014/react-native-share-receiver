@@ -7,17 +7,8 @@ export const useShareData = () => {
   const [state, setState] = useState(null);
 
   useEffect(() => {
-    ShareReceiver.addShareListener();
-    console.warn("Started listener");
-
-    return () => {
-      ShareReceiver.removeShareListener();
-    };
-  }, []);
-
-  useEffect(() => {
     const eventListener = eventEmitter.addListener("ShareReceiver", (event) => {
-      console.log(event.eventProperty); // "someValue"
+      console.warn(event.eventProperty); // "someValue"
 
       setState(event);
     });

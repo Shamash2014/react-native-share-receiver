@@ -1,43 +1,27 @@
 package com.reactlibrary;
 
 import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import com.facebook.react.bridge.ActivityEventListener;
 import com.facebook.react.bridge.Arguments;
-import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 
-public class ShareReceiverModule extends ReactContextBaseJavaModule {
+public class ShareReceiverModule
+    extends ReactContextBaseJavaModule implements ActivityEventListener {
   private final ReactApplicationContext reactContext;
-  private final Receiver receiver;
-
-  private class Receiver extends BroadcastReceiver {
-
-    private final ShareReceiverModule instance;
-
-    public Receiver(ShareReceiverModule shareReceiverModule) {
-      this.instance = shareReceiverModule;
-    }
-
-    @Override
-    public void onReceive(Context context, Intent intent) {
-      instance.setIntent(intent);
-    }
-  }
 
   public ShareReceiverModule(ReactApplicationContext reactContext) {
     super(reactContext);
     this.reactContext = reactContext;
-    this.receiver = new Receiver(this);
+    reactContext.addActivityEventListener(this);
   }
 
-  private void setIntent(Intent intent) {
+  public void setIntent(Intent intent) {
     String action = intent.getAction();
     String type = intent.getType();
 
@@ -52,24 +36,20 @@ public class ShareReceiverModule extends ReactContextBaseJavaModule {
         .emit("ShareReceiver", params);
   }
 
-  public static String getIntentName() { return "com.sharereceiver.intent"; }
-
   @Override
   public String getName() {
     return "ShareReceiver";
   }
 
-  @ReactMethod
-  public void addShareListener() {
-    Activity mActivity = reactContext.getCurrentActivity();
-    IntentFilter intentFilter =
-        new IntentFilter(ShareReceiverModule.getIntentName());
-    mActivity.registerReceiver(this.receiver, intentFilter);
+  @Override
+  public void onActivityResult(Activity activity, int requestCode,
+                               int resultCode, Intent data) {
+    Intent intent = activity.getIntent();
+    setIntent(intent);
   }
 
-  @ReactMethod
-  public void removeShareListener() {
-    Activity mActivity = reactContext.getCurrentActivity();
-    mActivity.unregisterReceiver(this.receiver);
+  @Override
+  public void onNewIntent(Intent intent) {
+    setIntent(intent);
   }
 }
