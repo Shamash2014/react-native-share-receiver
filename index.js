@@ -14,7 +14,7 @@ export const useShareData = () => {
     return () => {
       eventListener.remove();
     };
-  });
+  }, []);
 
   return state;
 };
