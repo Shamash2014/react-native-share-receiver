@@ -52,6 +52,10 @@ public class ShareReceiverModule extends ReactContextBaseJavaModule {
         .emit("ShareReceiver", params);
   }
 
+  public  static  getIntentNam() {
+    return "com.sharereceiver.intent";
+  }
+
   @Override
   public String getName() {
     return "ShareReceiver";
@@ -60,7 +64,7 @@ public class ShareReceiverModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void addShareListener() {
     Activity mActivity = reactContext.getCurrentActivity();
-    IntentFilter intentFilter = new IntentFilter(Intent.ACTION_SEND);
+    IntentFilter intentFilter = new IntentFilter(ShareReceiverModule.getIntentName());
     mActivity.registerReceiver(this.receiver, intentFilter);
   }
 
